@@ -3,259 +3,456 @@
 	Read Only by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Personnalisation : Teo Laperle (bilinguisme FR/EN, carte interactive, animations, ligne du temps)
 -->
-<html lang="fr">
+<html lang="fr" data-lang="fr">
   <head>
     <title>Teo Laperle | Sécurité internationale et défense</title>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="description" content="Teo Laperle, candidat à la maîtrise en études internationales (ESEI, Université Laval), spécialisation en sécurité internationale." />
     <link rel="stylesheet" href="assets/css/main.css" />
-        <style>
-      :root { --bleu: #2a52be; }
+
+    <!-- Polices -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+    <!-- Carte interactive (Leaflet) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+
+    <style>
+      /* ===== Couleurs et polices ===== */
+      :root {
+        --bleu: #2a52be;
+        --bleu-fonce: #1b3a8f;
+        --bleu-pale: #eaf0fc;
+        --texte: #2b2f38;
+        --gris: #6b7280;
+        --ligne: #e3e7ef;
+      }
+      body, input, select, textarea { font-family: "Inter", sans-serif !important; color: var(--texte); }
+      h1, h2, h3, h4, #logo a { font-family: "Playfair Display", serif !important; letter-spacing: 0 !important; }
       #header { background: var(--bleu) !important; }
       #header nav ul li a.active { color: var(--bleu) !important; }
+      #header nav ul li a:hover { background: rgba(255, 255, 255, 0.12); }
+      #header nav ul li, #header nav ul li a { border-color: rgba(255, 255, 255, 0.18) !important; }
+      #header .icons a { color: rgba(255, 255, 255, 0.8) !important; transition: color 0.2s ease, transform 0.2s ease; }
+      #header .icons a:hover { color: #fff !important; transform: translateY(-2px); }
+      #header .image.avatar img { aspect-ratio: 1 / 1; object-fit: cover; border-radius: 50%; }
+      #titleBar .toggle:before { background-color: var(--bleu) !important; }
       header.major h2 { color: var(--bleu) !important; }
       #main a { color: var(--bleu); }
       .button.primary { background-color: var(--bleu) !important; color: #fff !important; }
-      ul.feature-icons li:before { color: var(--bleu) !important; }
+      .button.primary:hover { background-color: var(--bleu-fonce) !important; }
+      section h3 { color: var(--bleu-fonce); }
+
+      /* ===== Bilinguisme ===== */
+      html[data-lang="en"] [data-l="fr"] { display: none !important; }
+      html:not([data-lang="en"]) [data-l="en"] { display: none !important; }
+
+      #lang-toggle {
+        position: fixed; left: 1.25rem; bottom: 1.25rem; z-index: 10002;
+        background: var(--bleu); color: #fff; border: 2px solid #fff;
+        border-radius: 999px; padding: 0.55rem 1.1rem; font-weight: 700;
+        font-size: 0.85rem; letter-spacing: 0.08em; cursor: pointer;
+        box-shadow: 0 6px 20px rgba(27, 58, 143, 0.35);
+        transition: transform 0.2s ease, background 0.2s ease;
+        line-height: 1; height: auto;
+      }
+      #lang-toggle:hover { transform: translateY(-2px); background: var(--bleu-fonce); }
+
+      /* ===== Bouton CV dans la barre latérale ===== */
+      #header .cv-btn {
+        display: inline-block; margin-top: 1.25rem; padding: 0.5rem 1.2rem;
+        border: 2px solid #fff; border-radius: 999px; color: #fff !important;
+        font-weight: 600; font-size: 0.85rem; text-decoration: none;
+        transition: background 0.2s ease, color 0.2s ease;
+      }
+      #header .cv-btn:hover { background: #fff; color: var(--bleu) !important; }
+
+      /* ===== Chiffres clés ===== */
+      .stats {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 1rem; margin: 2.5rem 0 0; padding: 0; list-style: none;
+      }
+      .stats li {
+        background: var(--bleu-pale); border-radius: 12px; padding: 1.25rem 1rem;
+        text-align: center; padding-left: 1rem;
+      }
+      .stats .num { display: block; font-family: "Playfair Display", serif; font-size: 2.2rem; font-weight: 700; color: var(--bleu); line-height: 1.1; }
+      .stats .lbl { display: block; font-size: 0.85rem; color: var(--gris); margin-top: 0.4rem; line-height: 1.4; }
+
+      /* ===== Compétences en étiquettes ===== */
+      .skill-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+      .skill-card {
+        border: 1px solid var(--ligne); border-radius: 12px; padding: 1.4rem;
+        background: #fff; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      }
+      .skill-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(42, 82, 190, 0.14); border-color: var(--bleu); }
+      .skill-card h4 { margin: 0 0 0.8rem; font-size: 1.05rem; color: var(--bleu-fonce); }
+      .chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.45rem; }
+      .chips li {
+        padding: 0.3rem 0.75rem; border-radius: 999px; background: var(--bleu-pale);
+        color: var(--bleu-fonce); font-size: 0.82rem; font-weight: 500; line-height: 1.5; margin: 0;
+      }
+
+      /* ===== Carte ===== */
+      #map {
+        height: 440px; border-radius: 14px; border: 1px solid var(--ligne);
+        box-shadow: 0 10px 30px rgba(27, 58, 143, 0.12); z-index: 1;
+      }
+      .map-legend { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1rem; font-size: 0.85rem; color: var(--gris); }
+      .map-legend span::before {
+        content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+        margin-right: 0.45rem; vertical-align: middle;
+      }
+      .map-legend .lg-past::before { background: var(--bleu); }
+      .map-legend .lg-future::before { background: #fff; border: 3px solid var(--bleu); width: 8px; height: 8px; }
+      .leaflet-popup-content { font-family: "Inter", sans-serif; font-size: 0.85rem; line-height: 1.5; margin: 0.9rem 1rem; }
+      .leaflet-popup-content strong { color: var(--bleu-fonce); font-size: 0.95rem; }
+      .leaflet-container a { color: var(--bleu); }
+
+      /* ===== Formation en cartes ===== */
+      .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
+      .edu-card {
+        border-top: 4px solid var(--bleu); border-radius: 10px; background: #fff;
+        padding: 1.4rem; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+      .edu-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(42, 82, 190, 0.15); }
+      .edu-card .when { font-size: 0.8rem; font-weight: 600; color: var(--bleu); text-transform: uppercase; letter-spacing: 0.06em; }
+      .edu-card h4 { margin: 0.4rem 0 0.5rem; font-size: 1.05rem; line-height: 1.35; }
+      .edu-card p { margin: 0; font-size: 0.9rem; color: var(--gris); line-height: 1.55; }
+
+      /* ===== Ligne du temps ===== */
+      .timeline { position: relative; list-style: none; margin: 0; padding: 0 0 0 2rem; }
+      .timeline::before {
+        content: ""; position: absolute; left: 0.45rem; top: 0.4rem; bottom: 0.4rem;
+        width: 2px; background: linear-gradient(var(--bleu), var(--bleu-pale));
+      }
+      .timeline > li { position: relative; margin: 0 0 2rem; padding: 0; }
+      .timeline > li::before {
+        content: ""; position: absolute; left: -1.95rem; top: 0.35rem;
+        width: 14px; height: 14px; border-radius: 50%; background: #fff;
+        border: 3px solid var(--bleu); transition: background 0.25s ease, transform 0.25s ease;
+      }
+      .timeline > li:hover::before { background: var(--bleu); transform: scale(1.2); }
+      .timeline .when { font-size: 0.8rem; font-weight: 600; color: var(--bleu); text-transform: uppercase; letter-spacing: 0.06em; }
+      .timeline h4 { margin: 0.2rem 0 0.15rem; font-size: 1.1rem; }
+      .timeline .org { font-size: 0.9rem; color: var(--gris); margin: 0 0 0.5rem; }
+      .timeline ul { margin: 0.3rem 0 0; padding-left: 1.1rem; }
+      .timeline ul li { font-size: 0.92rem; line-height: 1.6; margin: 0.15rem 0; padding: 0; }
+
+      /* ===== Animations au défilement ===== */
+      html.js-reveal .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+      html.js-reveal .reveal.visible { opacity: 1; transform: none; }
+      @media (prefers-reduced-motion: reduce) {
+        html.js-reveal .reveal { opacity: 1; transform: none; transition: none; }
+        .skill-card, .edu-card, #lang-toggle { transition: none; }
+      }
+
+      @media screen and (max-width: 736px) {
+        #map { height: 340px; }
+        #lang-toggle { left: 0.9rem; bottom: 0.9rem; }
+      }
     </style>
   </head>
   <body class="is-preload">
+    <!-- Bouton de langue -->
+    <button id="lang-toggle" type="button" aria-label="Switch to English">EN</button>
+
     <!-- Header -->
     <section id="header">
       <header>
-        <span class="image avatar"
-          ><img src="images/portrait.JPG" alt="Portrait de Teo Laperle"
-        /></span>
+        <span class="image avatar"><img src="images/portrait.JPG" alt="Teo Laperle" /></span>
         <h1 id="logo"><a href="#">Teo Laperle</a></h1>
         <p>
-          M.A. en études internationales (ESEI)<br />
-          Université Laval
+          <span data-l="fr">M.A. en études internationales (ESEI)<br />Université Laval</span>
+          <span data-l="en">M.A. candidate in International Studies (ESEI)<br />Université Laval</span>
         </p>
+        <a class="cv-btn" href="cv.pdf" download="Teo_Laperle_CV.pdf">
+          <span data-l="fr">Télécharger mon CV</span><span data-l="en">Download my CV</span>
+        </a>
       </header>
       <nav id="nav">
         <ul>
-          <li><a href="#one" class="active">À propos</a></li>
-          <li><a href="#two">Compétences</a></li>
-          <li><a href="#three">Formation</a></li>
-          <li><a href="#five">Expérience</a></li>
+          <li><a href="#one" class="active"><span data-l="fr">À propos</span><span data-l="en">About</span></a></li>
+          <li><a href="#two"><span data-l="fr">Compétences</span><span data-l="en">Skills</span></a></li>
+          <li><a href="#carte"><span data-l="fr">Mon parcours</span><span data-l="en">My path</span></a></li>
+          <li><a href="#three"><span data-l="fr">Formation</span><span data-l="en">Education</span></a></li>
+          <li><a href="#five"><span data-l="fr">Expérience</span><span data-l="en">Experience</span></a></li>
           <li><a href="#four">Contact</a></li>
         </ul>
       </nav>
       <footer>
         <ul class="icons">
-          <li>
-            <a href="https://www.linkedin.com/in/teo-laperle/" class="icon brands fa-linkedin"
-              ><span class="label">LinkedIn</span></a
-            >
-          </li>
-          <li>
-            <a href="https://github.com/teolap" class="icon brands fa-github"
-              ><span class="label">Github</span></a
-            >
-          </li>
-          <li>
-            <a href="#four" class="icon solid fa-envelope"
-              ><span class="label">Email</span></a
-            >
-          </li>
+          <li><a href="https://www.linkedin.com/in/teo-laperle/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+          <li><a href="https://github.com/teolap" class="icon brands fa-github"><span class="label">Github</span></a></li>
+          <li><a href="#four" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
         </ul>
       </footer>
     </section>
 
     <!-- Wrapper -->
     <div id="wrapper">
-      <!-- Main -->
       <div id="main">
-        <!-- One : À propos -->
+
+        <!-- ===== À propos ===== -->
         <section id="one">
           <div class="image main" data-position="center">
             <img src="images/bg.jpg" alt="" />
           </div>
           <div class="container">
-            <header class="major">
+            <header class="major reveal">
               <h2>Teo Laperle</h2>
-              <p>Sécurité internationale, défense et politique étrangère.</p>
+              <p data-l="fr">Sécurité internationale, défense et politique étrangère.</p>
+              <p data-l="en">International security, defence and foreign policy.</p>
             </header>
-            <p>
-              Je fais une maîtrise en études internationales à l'École
-              supérieure d'études internationales (ESEI) de l'Université Laval,
-              avec une spécialisation en sécurité internationale. J'ai obtenu un
-              baccalauréat mention Honours spécialisé en études internationales, avec une mineure
-              en science politique, à l'Université Bishop's.
-            </p>
-            <p>
-              Je m'intéresse à la sécurité, à la défense, à la politique
-              étrangère et aux politiques publiques. Je suis surtout l'évolution
-              de l'ordre international, le comportement des États et ce que les
-              changements géopolitiques veulent dire pour la sécurité et la
-              politique étrangère du Canada.
-            </p>
-            <p>
-              Je parle français et anglais, et j'ai une connaissance de travail
-              de l'espagnol.
-            </p>
+            <div class="reveal">
+              <p data-l="fr">
+                Je fais une maîtrise en études internationales à l'École supérieure
+                d'études internationales (ESEI) de l'Université Laval, avec une
+                spécialisation en sécurité internationale. J'ai obtenu un
+                baccalauréat spécialisé en études internationales, avec une mineure
+                en science politique, à l'Université Bishop's.
+              </p>
+              <p data-l="en">
+                I am a Master's candidate in International Studies at Université
+                Laval's École supérieure d'études internationales (ESEI),
+                specializing in international security. I hold an Honours B.A. in
+                International Studies, with a minor in Political Science, from
+                Bishop's University.
+              </p>
+              <p data-l="fr">
+                Je m'intéresse à la sécurité, à la défense, à la politique étrangère
+                et aux politiques publiques. Je suis l'évolution de l'ordre
+                international, le comportement des États et ce que les changements
+                géopolitiques signifient pour la sécurité du Canada.
+              </p>
+              <p data-l="en">
+                My interests cover security, defence, foreign policy and public
+                policy. I follow the evolution of the international order, state
+                behaviour, and what geopolitical change means for Canada's security.
+              </p>
+            </div>
+            <ul class="stats reveal">
+              <li><span class="num" data-count="50">0</span><span class="lbl" data-l="fr">propositions de recherche évaluées (CUSC)</span><span class="lbl" data-l="en">research proposals reviewed (CUSC)</span></li>
+              <li><span class="num" data-count="30">0</span><span class="lbl" data-l="fr">étudiants accompagnés (POL338)</span><span class="lbl" data-l="en">students supported (POL338)</span></li>
+              <li><span class="num" data-count="500">0</span><span class="lbl" data-l="fr">participants accueillis à Ottawa</span><span class="lbl" data-l="en">attendees welcomed in Ottawa</span></li>
+              <li><span class="num" data-count="9">0</span><span class="lbl" data-l="fr">pays représentés parmi mes échanges</span><span class="lbl" data-l="en">countries among practitioners met</span></li>
+              <li><span class="num" data-count="3">0</span><span class="lbl" data-l="fr">langues : FR, EN, ES</span><span class="lbl" data-l="en">languages: FR, EN, ES</span></li>
+            </ul>
           </div>
         </section>
 
-        <!-- Two : Compétences et réalisations -->
+        <!-- ===== Compétences ===== -->
         <section id="two">
           <div class="container">
-            <h3>Mes compétences</h3>
-            <p>
-              Ce que j'ai développé en recherche, en coordination de conférences
-              et en simulations diplomatiques.
-            </p>
-            <ul class="feature-icons">
-              <li class="icon solid fa-search">Recherche et analyse stratégique</li>
-              <li class="icon solid fa-pen">Rédaction de notes politiques et de documents d'information</li>
-              <li class="icon solid fa-tasks">Coordination de projets et d'événements</li>
-              <li class="icon solid fa-users">Leadership d'équipe et communication</li>
-              <li class="icon solid fa-language">Français, anglais, espagnol (connaissance de travail)</li>
-              <li class="icon solid fa-handshake">Service à la clientèle et relations avec les partenaires</li>
-            </ul>
-
-            <h3>Mes réalisations</h3>
-            <ul>
-              <li>Rapporteur au Sommet sur la sécurité climatique de Montréal 2026 (CCASCOE de l'OTAN et CDA Institute)</li>
-              <li>Délégué de la Norvège à la Conférence d'examen du TNP, National Model United Nations, New York (2026)</li>
-              <li>Bénévole à la 94e Conférence d'Ottawa sur la sécurité et la défense (2026)</li>
-              <li>Membre du comité organisateur de la 10e édition de la CUSC (2027)</li>
-              <li>Session d'échange à l'Université de Hertfordshire, Royaume-Uni, mention First Class Honours (2025)</li>
-              <li>Délégué aux Jeux de la science politique (2025-2026)</li>
-            </ul>
+            <h3 class="reveal"><span data-l="fr">Mes compétences</span><span data-l="en">My skills</span></h3>
+            <div class="skill-groups">
+              <div class="skill-card reveal">
+                <h4><span data-l="fr">Méthodes de recherche</span><span data-l="en">Research methods</span></h4>
+                <ul class="chips">
+                  <li><span data-l="fr">Recherche qualitative</span><span data-l="en">Qualitative research</span></li>
+                  <li><span data-l="fr">Analyse comparative</span><span data-l="en">Comparative analysis</span></li>
+                  <li><span data-l="fr">Études de cas</span><span data-l="en">Case studies</span></li>
+                  <li><span data-l="fr">Analyse de politiques</span><span data-l="en">Policy analysis</span></li>
+                  <li><span data-l="fr">Analyse de traités</span><span data-l="en">Treaty analysis</span></li>
+                  <li><span data-l="fr">Évaluation des sources</span><span data-l="en">Source evaluation</span></li>
+                </ul>
+              </div>
+              <div class="skill-card reveal">
+                <h4><span data-l="fr">Analyse et rédaction</span><span data-l="en">Analysis and writing</span></h4>
+                <ul class="chips">
+                  <li><span data-l="fr">Notes d'information</span><span data-l="en">Briefing notes</span></li>
+                  <li><span data-l="fr">Rédaction de politiques</span><span data-l="en">Policy writing</span></li>
+                  <li><span data-l="fr">Exposés de position</span><span data-l="en">Position papers</span></li>
+                  <li><span data-l="fr">Synthèse d'information complexe</span><span data-l="en">Synthesis of complex information</span></li>
+                  <li><span data-l="fr">Rédaction bilingue</span><span data-l="en">Bilingual writing</span></li>
+                </ul>
+              </div>
+              <div class="skill-card reveal">
+                <h4><span data-l="fr">Veille et sources ouvertes</span><span data-l="en">Monitoring and open sources</span></h4>
+                <ul class="chips">
+                  <li><span data-l="fr">Recherche en sources ouvertes</span><span data-l="en">Open-source research</span></li>
+                  <li><span data-l="fr">Veille médiatique</span><span data-l="en">Media monitoring</span></li>
+                  <li><span data-l="fr">Recoupement des sources</span><span data-l="en">Source cross-checking</span></li>
+                  <li><span data-l="fr">Suivi des tendances géopolitiques</span><span data-l="en">Tracking geopolitical trends</span></li>
+                </ul>
+              </div>
+              <div class="skill-card reveal">
+                <h4><span data-l="fr">Outils et langues</span><span data-l="en">Tools and languages</span></h4>
+                <ul class="chips">
+                  <li>JSTOR</li>
+                  <li>LexisNexis</li>
+                  <li>Google Scholar</li>
+                  <li>Semantic Scholar</li>
+                  <li>Word, PowerPoint, Excel</li>
+                  <li>Canva</li>
+                  <li><span data-l="fr">Français</span><span data-l="en">French</span></li>
+                  <li><span data-l="fr">Anglais</span><span data-l="en">English</span></li>
+                  <li><span data-l="fr">Espagnol</span><span data-l="en">Spanish</span></li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
 
-        <!-- Three : Formation -->
+        <!-- ===== Carte interactive ===== -->
+        <section id="carte">
+          <div class="container">
+            <h3 class="reveal"><span data-l="fr">Mon parcours sur la carte</span><span data-l="en">My path on the map</span></h3>
+            <p class="reveal" data-l="fr">De Saint-Hyacinthe à Washington : les lieux qui ont façonné mon parcours en études internationales. Cliquez sur un point.</p>
+            <p class="reveal" data-l="en">From Saint-Hyacinthe to Washington: the places that shaped my path in international studies. Click a point.</p>
+            <div id="map" class="reveal" role="region" aria-label="Carte du parcours"></div>
+            <div class="map-legend">
+              <span class="lg-past"><span data-l="fr">Étape réalisée</span><span data-l="en">Completed</span></span>
+              <span class="lg-future"><span data-l="fr">À venir</span><span data-l="en">Upcoming</span></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Formation ===== -->
         <section id="three">
           <div class="container">
-            <h3>Formation</h3>
-            <div class="features">
-              <article>
-                <div class="inner">
-                  <h4>Maîtrise en études internationales, Université Laval</h4>
-                  <p>
-                    2026 à 2028. ESEI, spécialisation en sécurité internationale.
-                  </p>
-                </div>
+            <h3 class="reveal"><span data-l="fr">Formation</span><span data-l="en">Education</span></h3>
+            <div class="edu-grid">
+              <article class="edu-card reveal">
+                <span class="when"><span data-l="fr">2026 à aujourd'hui</span><span data-l="en">2026 to present</span></span>
+                <h4><span data-l="fr">Maîtrise en études internationales</span><span data-l="en">M.A. in International Studies</span></h4>
+                <p><span data-l="fr">Université Laval (ESEI), Québec. Spécialisation en sécurité internationale.</span><span data-l="en">Université Laval (ESEI), Québec City. Specialization in international security.</span></p>
               </article>
-              <article>
-                <div class="inner">
-                  <h4>Baccalauréat spécialisé en études internationales, Université Bishop's</h4>
-                  <p>
-                    2023 à 2026. Concentration en gouvernance mondiale, mineure
-                    en science politique.
-                  </p>
-                </div>
+              <article class="edu-card reveal">
+                <span class="when">2023 – 2026</span>
+                <h4><span data-l="fr">Baccalauréat spécialisé en études internationales</span><span data-l="en">Honours B.A. in International Studies</span></h4>
+                <p><span data-l="fr">Université Bishop's, Sherbrooke. Concentration en gouvernance mondiale, mineure en science politique.</span><span data-l="en">Bishop's University, Sherbrooke. Global governance concentration, minor in Political Science.</span></p>
               </article>
-              <article>
-                <div class="inner">
-                  <h4>Session d'échange, Université de Hertfordshire</h4>
-                  <p>
-                    Janvier à mai 2025, Royaume-Uni. Études internationales.
-                    First Class Honours.
-                  </p>
-                </div>
+              <article class="edu-card reveal">
+                <span class="when"><span data-l="fr">Janvier à mai 2025</span><span data-l="en">January to May 2025</span></span>
+                <h4><span data-l="fr">Session d'échange</span><span data-l="en">Exchange semester</span></h4>
+                <p><span data-l="fr">University of Hertfordshire, Royaume-Uni. Mention First-Class Honours.</span><span data-l="en">University of Hertfordshire, United Kingdom. First-Class Honours.</span></p>
               </article>
-              <article>
-                <div class="inner">
-                  <h4>DEC en sciences humaines, Cégep de Saint-Hyacinthe</h4>
-                  <p>2019 à 2022.</p>
-                </div>
+              <article class="edu-card reveal">
+                <span class="when">2019 – 2022</span>
+                <h4><span data-l="fr">DEC en sciences humaines</span><span data-l="en">DEC in Social Sciences</span></h4>
+                <p>Cégep de Saint-Hyacinthe.</p>
               </article>
             </div>
           </div>
         </section>
 
-        <!-- Five : Expérience -->
+        <!-- ===== Expérience (ligne du temps) ===== -->
         <section id="five">
           <div class="container">
-            <h3>Expérience</h3>
-            <div class="features">
-              <article>
-                <div class="inner">
-                  <h4>Délégué, OTAN UL</h4>
-                  <p>
-                    Depuis octobre 2026. Délégation de l'Université Laval à
-                    l'International Model NATO, Washington.
-                  </p>
-                </div>
-              </article>
-              <article>
-                <div class="inner">
-                  <h4>Coordonnateur, Canadian Undergraduate Security Conference</h4>
-                  <p>
-                    Depuis septembre 2025. J'ai supervisé les thèmes de recherche
-                    et l'appel à propositions, formé les panels (conférenciers,
-                    présidents, modérateurs) et géré les communications et les
-                    réseaux sociaux de la conférence.
-                  </p>
-                </div>
-              </article>
-              <article>
-                <div class="inner">
-                  <h4>Auxiliaire d'enseignement, Université Bishop's</h4>
-                  <p>
-                    Janvier à avril 2026. Cours POL338, droit international des
-                    droits de la personne, sous la supervision du Dr Luis Béjar.
-                  </p>
-                </div>
-              </article>
-              <article>
-                <div class="inner">
-                  <h4>Délégué, Model United Nations</h4>
-                  <p>
-                    2025 à 2026. Norvège au TNP (NMUN, New York), Pays-Bas à
-                    l'Organisation internationale du travail (QMUN), États-Unis à
-                    l'Assemblée générale (Bishop's et Sherbrooke).
-                  </p>
-                </div>
-              </article>
-              <article>
-                <div class="inner">
-                  <h4>Bénévole, Conference of Defence Associations Institute</h4>
-                  <p>
-                    Février à mars 2026, Ottawa. 94e Conférence d'Ottawa sur la
-                    sécurité et la défense.
-                  </p>
-                </div>
-              </article>
-              <article>
-                <div class="inner">
-                  <h4>Caissier-vendeur, SAQ</h4>
-                  <p>Depuis avril 2020. Service à la clientèle et vente.</p>
-                </div>
-              </article>
-              <article>
-                <div class="inner">
-                  <h4>Moniteur de camp de jour, Ville d'Otterburn Park</h4>
-                  <p>Étés 2018 à 2020.</p>
-                </div>
-              </article>
-            </div>
+            <h3 class="reveal"><span data-l="fr">Expérience</span><span data-l="en">Experience</span></h3>
+            <ul class="timeline">
+              <li class="reveal">
+                <span class="when"><span data-l="fr">Octobre 2026 à aujourd'hui</span><span data-l="en">October 2026 to present</span></span>
+                <h4><span data-l="fr">Délégué</span><span data-l="en">Delegate</span></h4>
+                <p class="org">OTAN UL, Université Laval</p>
+                <ul>
+                  <li data-l="fr">Délégation à l'International Model NATO, Washington, février 2027.</li>
+                  <li data-l="en">Delegation to International Model NATO, Washington, February 2027.</li>
+                </ul>
+              </li>
+              <li class="reveal">
+                <span class="when"><span data-l="fr">Septembre 2025 à aujourd'hui</span><span data-l="en">September 2025 to present</span></span>
+                <h4><span data-l="fr">Coordonnateur</span><span data-l="en">Coordinator</span></h4>
+                <p class="org">Canadian Undergraduate Security Conference (CUSC)</p>
+                <ul>
+                  <li data-l="fr">Évalué plus de 50 propositions de recherche et recommandé les communications du programme final.</li>
+                  <li data-l="en">Reviewed more than 50 research proposals and recommended submissions for the final program.</li>
+                  <li data-l="fr">Contribué aux thèmes de recherche et à l'appel à propositions.</li>
+                  <li data-l="en">Helped develop research themes and the call for submissions.</li>
+                  <li data-l="fr">Formé des panels sur la défense et la sécurité internationale.</li>
+                  <li data-l="en">Built panels on defence and international security.</li>
+                  <li data-l="fr">Coordonné les communications avec les étudiants, les conférenciers et les réseaux sociaux.</li>
+                  <li data-l="en">Coordinated communications with students, speakers and social media.</li>
+                </ul>
+              </li>
+              <li class="reveal">
+                <span class="when">2026</span>
+                <h4><span data-l="fr">Rapporteur</span><span data-l="en">Rapporteur</span></h4>
+                <p class="org"><span data-l="fr">Sommet sur la sécurité climatique de Montréal (CCASCOE de l'OTAN et CDA Institute)</span><span data-l="en">Montréal Climate Security Summit (NATO CCASCOE and CDA Institute)</span></p>
+                <ul>
+                  <li data-l="fr">Prise de notes pour le compte rendu officiel des discussions sur le climat, la sécurité et la défense.</li>
+                  <li data-l="en">Took notes for the official report on discussions linking climate, security and defence.</li>
+                </ul>
+              </li>
+              <li class="reveal">
+                <span class="when"><span data-l="fr">Mars 2026</span><span data-l="en">March 2026</span></span>
+                <h4><span data-l="fr">Délégué étudiant</span><span data-l="en">Student Delegate</span></h4>
+                <p class="org"><span data-l="fr">Conférence d'Ottawa sur la sécurité et la défense (CDA Institute)</span><span data-l="en">Ottawa Conference on Security and Defence (CDA Institute)</span></p>
+                <ul>
+                  <li data-l="fr">Accueilli plus de 500 participants au sein de l'équipe de bénévoles.</li>
+                  <li data-l="en">Welcomed more than 500 attendees as part of the volunteer team.</li>
+                  <li data-l="fr">Rédigé des notes structurées sur les panels de défense et de politique stratégique.</li>
+                  <li data-l="en">Prepared structured notes on defence and strategic policy panels.</li>
+                  <li data-l="fr">Échangé avec des praticiens de neuf pays.</li>
+                  <li data-l="en">Engaged with practitioners from nine countries.</li>
+                </ul>
+              </li>
+              <li class="reveal">
+                <span class="when"><span data-l="fr">Hiver 2026</span><span data-l="en">Winter 2026</span></span>
+                <h4><span data-l="fr">Auxiliaire d'enseignement</span><span data-l="en">Teaching Assistant</span></h4>
+                <p class="org"><span data-l="fr">POL338, droit international et droits de la personne, Université Bishop's</span><span data-l="en">POL338, International Law and Human Rights, Bishop's University</span></p>
+                <ul>
+                  <li data-l="fr">Accompagné plus de 30 étudiants dans leurs travaux et examens.</li>
+                  <li data-l="en">Supported more than 30 students with assignments and exams.</li>
+                  <li data-l="fr">Animé des discussions et participé à la correction.</li>
+                  <li data-l="en">Facilitated discussions and helped with marking.</li>
+                </ul>
+              </li>
+              <li class="reveal">
+                <span class="when"><span data-l="fr">2024 à 2026</span><span data-l="en">2024 to 2026</span></span>
+                <h4><span data-l="fr">Délégué, Model United Nations</span><span data-l="en">Model United Nations Delegate</span></h4>
+                <p class="org"><span data-l="fr">Université Bishop's, Sherbrooke et New York</span><span data-l="en">Bishop's University, Sherbrooke and New York</span></p>
+                <ul>
+                  <li data-l="fr">Représenté la Norvège (TNP, NMUN New York), les Pays-Bas et les États-Unis.</li>
+                  <li data-l="en">Represented Norway (NPT, NMUN New York), the Netherlands and the United States.</li>
+                  <li data-l="fr">Rédigé des exposés de position sur le contrôle des armements.</li>
+                  <li data-l="en">Drafted position papers on arms control.</li>
+                </ul>
+              </li>
+              <li class="reveal">
+                <span class="when"><span data-l="fr">Avril 2020 à aujourd'hui</span><span data-l="en">April 2020 to present</span></span>
+                <h4><span data-l="fr">Caissier-vendeur</span><span data-l="en">Sales Associate</span></h4>
+                <p class="org"><span data-l="fr">Société des alcools du Québec (SAQ)</span><span data-l="en">Société des alcools du Québec (SAQ)</span></p>
+                <ul>
+                  <li data-l="fr">Service à la clientèle dans un milieu réglementé, en parallèle des études à temps plein.</li>
+                  <li data-l="en">Customer service in a regulated environment, alongside full-time studies.</li>
+                </ul>
+              </li>
+              <li class="reveal">
+                <span class="when">2016 – 2025</span>
+                <h4><span data-l="fr">Bénévolat</span><span data-l="en">Volunteering</span></h4>
+                <p class="org"><span data-l="fr">Héma-Québec, semaine d'orientation et portes ouvertes de l'Université Bishop's</span><span data-l="en">Héma-Québec, Bishop's University orientation week and open house</span></p>
+              </li>
+            </ul>
           </div>
         </section>
 
-        <!-- Four : Contact -->
+        <!-- ===== Contact ===== -->
         <section id="four">
           <div class="container">
-            <h3>Me joindre</h3>
-            <p>
-              Pour une collaboration, une occasion en défense et sécurité ou une
-              question sur mes travaux, écrivez-moi.
-            </p>
-            <div class="row gtr-uniform">
+            <h3 class="reveal"><span data-l="fr">Me joindre</span><span data-l="en">Get in touch</span></h3>
+            <p class="reveal" data-l="fr">Pour une collaboration, une occasion en défense et sécurité ou une question sur mes travaux, écrivez-moi.</p>
+            <p class="reveal" data-l="en">For a collaboration, an opportunity in defence and security, or a question about my work, write to me.</p>
+            <div class="row gtr-uniform reveal">
               <div class="col-12">
-                <a
-                  href="mailto:teolaperle@gmail.com?subject=Contact%20via%20votre%20site"
-                  class="button primary"
-                >
-                  Envoyer un courriel
-                </a>
+                <ul class="actions">
+                  <li>
+                    <a href="mailto:teolaperle@gmail.com" class="button primary">
+                      <span data-l="fr">Envoyer un courriel</span><span data-l="en">Send an email</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="cv.pdf" download="Teo_Laperle_CV.pdf" class="button">
+                      <span data-l="fr">Télécharger mon CV</span><span data-l="en">Download my CV</span>
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -273,7 +470,7 @@
       </section>
     </div>
 
-    <!-- Scripts -->
+    <!-- Scripts du modèle -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/jquery.scrollex.min.js"></script>
     <script src="assets/js/jquery.scrolly.min.js"></script>
@@ -281,5 +478,146 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+
+    <!-- Carte -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+    <!-- Personnalisation -->
+    <script>
+      (function () {
+        var html = document.documentElement;
+
+        /* ---------- 1. Langue FR / EN ---------- */
+        var titles = {
+          fr: "Teo Laperle | Sécurité internationale et défense",
+          en: "Teo Laperle | International Security and Defence"
+        };
+        var btn = document.getElementById("lang-toggle");
+        var markers = [];
+
+        function setLang(lang) {
+          html.setAttribute("data-lang", lang);
+          html.setAttribute("lang", lang);
+          document.title = titles[lang];
+          btn.textContent = lang === "fr" ? "EN" : "FR";
+          btn.setAttribute("aria-label", lang === "fr" ? "Switch to English" : "Passer au français");
+          markers.forEach(function (m) { m.marker.setPopupContent(popupHtml(m.place, lang)); });
+          try { localStorage.setItem("lang", lang); } catch (e) {}
+        }
+
+        btn.addEventListener("click", function () {
+          setLang(html.getAttribute("data-lang") === "fr" ? "en" : "fr");
+        });
+
+        /* ---------- 2. Carte interactive ---------- */
+        var places = [
+          { lat: 45.6307, lng: -72.9566, future: false,
+            fr: ["Saint-Hyacinthe", "DEC en sciences humaines, Cégep de Saint-Hyacinthe (2019 à 2022)"],
+            en: ["Saint-Hyacinthe", "DEC in Social Sciences, Cégep de Saint-Hyacinthe (2019 to 2022)"] },
+          { lat: 45.3632, lng: -71.8457, future: false,
+            fr: ["Sherbrooke", "B.A. spécialisé en études internationales, Université Bishop's (2023 à 2026). Auxiliaire d'enseignement en POL338. Coordonnateur de la CUSC, dont la 10e édition aura lieu le 20 février 2027."],
+            en: ["Sherbrooke", "Honours B.A. in International Studies, Bishop's University (2023 to 2026). Teaching Assistant for POL338. CUSC Coordinator; the 10th edition takes place on February 20, 2027."] },
+          { lat: 51.7520, lng: -0.2390, future: false,
+            fr: ["Hatfield, Royaume-Uni", "Session d'échange à la University of Hertfordshire (janvier à mai 2025), mention First-Class Honours."],
+            en: ["Hatfield, United Kingdom", "Exchange semester at the University of Hertfordshire (January to May 2025), First-Class Honours."] },
+          { lat: 40.7489, lng: -73.9680, future: false,
+            fr: ["New York", "National Model United Nations 2026 : délégué de la Norvège à la Conférence d'examen du TNP."],
+            en: ["New York", "National Model United Nations 2026: Norway's delegate to the NPT Review Conference."] },
+          { lat: 45.4215, lng: -75.6972, future: false,
+            fr: ["Ottawa", "Délégué étudiant à la 94e Conférence d'Ottawa sur la sécurité et la défense (CDA Institute, mars 2026)."],
+            en: ["Ottawa", "Student delegate at the 94th Ottawa Conference on Security and Defence (CDA Institute, March 2026)."] },
+          { lat: 45.5017, lng: -73.5673, future: false,
+            fr: ["Montréal", "Rapporteur au Sommet sur la sécurité climatique de Montréal 2026 (CCASCOE de l'OTAN et CDA Institute)."],
+            en: ["Montréal", "Rapporteur at the 2026 Montréal Climate Security Summit (NATO CCASCOE and CDA Institute)."] },
+          { lat: 46.7817, lng: -71.2747, future: false,
+            fr: ["Québec", "Maîtrise en études internationales, spécialisation en sécurité internationale, Université Laval (ESEI), depuis 2026."],
+            en: ["Québec City", "M.A. in International Studies, international security specialization, Université Laval (ESEI), since 2026."] },
+          { lat: 38.9072, lng: -77.0369, future: true,
+            fr: ["Washington (à venir)", "International Model NATO, février 2027, avec la délégation OTAN UL."],
+            en: ["Washington (upcoming)", "International Model NATO, February 2027, with the OTAN UL delegation."] }
+        ];
+
+        function popupHtml(place, lang) {
+          var p = place[lang];
+          return "<strong>" + p[0] + "</strong><br>" + p[1];
+        }
+
+        var mapEl = document.getElementById("map");
+        if (window.L && mapEl) {
+          var map = L.map(mapEl, { scrollWheelZoom: false, worldCopyJump: true });
+          L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+            subdomains: "abcd",
+            maxZoom: 18
+          }).addTo(map);
+
+          var bounds = [];
+          places.forEach(function (place) {
+            var marker = L.circleMarker([place.lat, place.lng], {
+              radius: 9,
+              color: "#2a52be",
+              weight: 3,
+              fillColor: place.future ? "#ffffff" : "#2a52be",
+              fillOpacity: 1
+            }).addTo(map);
+            marker.bindPopup(popupHtml(place, "fr"));
+            markers.push({ marker: marker, place: place });
+            bounds.push([place.lat, place.lng]);
+          });
+
+          /* Trajet en pointillé, dans l'ordre chronologique */
+          L.polyline(bounds, { color: "#2a52be", weight: 2, opacity: 0.45, dashArray: "6 8" }).addTo(map);
+
+          map.fitBounds(bounds, { padding: [30, 30] });
+          window.addEventListener("load", function () {
+            map.invalidateSize();
+            map.fitBounds(bounds, { padding: [30, 30] });
+          });
+        } else if (mapEl) {
+          mapEl.style.display = "none";
+        }
+
+        /* Langue enregistrée (après la carte, pour traduire les bulles) */
+        var saved = "fr";
+        try { saved = localStorage.getItem("lang") || "fr"; } catch (e) {}
+        setLang(saved === "en" ? "en" : "fr");
+
+        /* ---------- 3. Animations au défilement ---------- */
+        function countUp(el) {
+          var target = parseInt(el.getAttribute("data-count"), 10);
+          var start = null;
+          var duration = 1400;
+          function step(ts) {
+            if (!start) start = ts;
+            var progress = Math.min((ts - start) / duration, 1);
+            var value = Math.round(target * (1 - Math.pow(1 - progress, 3)));
+            el.textContent = value + (target >= 10 && progress === 1 ? "+" : "");
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        }
+
+        var nums = document.querySelectorAll("[data-count]");
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if ("IntersectionObserver" in window && !reduce) {
+          html.classList.add("js-reveal");
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add("visible");
+              entry.target.querySelectorAll("[data-count]").forEach(countUp);
+              io.unobserve(entry.target);
+            });
+          }, { threshold: 0.12 });
+          document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+        } else {
+          nums.forEach(function (el) {
+            var t = parseInt(el.getAttribute("data-count"), 10);
+            el.textContent = t + (t >= 10 ? "+" : "");
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
