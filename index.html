@@ -3,7 +3,7 @@
 	Read Only by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-	Personnalisation : Teo Laperle (bilinguisme FR/EN, carte interactive, animations, ligne du temps)
+	Personnalisation : Teo Laperle (bilinguisme FR/EN, mode sombre, carte interactive, animations, ligne du temps)
 -->
 <html lang="fr" data-lang="fr">
   <head>
@@ -11,6 +11,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="description" content="Teo Laperle, candidat à la maîtrise en études internationales (ESEI, Université Laval), spécialisation en sécurité internationale." />
+    <link rel="canonical" href="https://teolap.github.io/" />
+
+    <!-- Aperçu du lien quand le site est partagé (LinkedIn, Messenger, courriel) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://teolap.github.io/" />
+    <meta property="og:title" content="Teo Laperle | Sécurité internationale et défense" />
+    <meta property="og:description" content="Candidat à la maîtrise en études internationales (ESEI, Université Laval), spécialisation en sécurité internationale." />
+    <meta property="og:image" content="https://teolap.github.io/images/portrait.JPG" />
+    <meta property="og:locale" content="fr_CA" />
+    <meta property="og:locale:alternate" content="en_CA" />
+    <meta name="twitter:card" content="summary" />
+
+    <!-- Thème clair ou sombre appliqué avant l'affichage (évite un flash blanc) -->
+    <script>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem("theme"); } catch (e) {}
+        if (!t) t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+
     <link rel="stylesheet" href="assets/css/main.css" />
 
     <!-- Polices -->
@@ -41,26 +63,140 @@
       #header .icons a:hover { color: #fff !important; transform: translateY(-2px); }
       #header .image.avatar img { aspect-ratio: 1 / 1; object-fit: cover; border-radius: 50%; }
       #titleBar .toggle:before { background-color: var(--bleu) !important; }
+
+      /* Barre latérale plus compacte pour que les 8 liens tiennent sur un écran de portable */
+      @media screen and (min-width: 1025px) {
+        #header { overflow-y: auto; }
+        #header > header { padding: 2em 2em 1.5em; }
+        #header > header .avatar { width: 6.5em; margin-bottom: 1.25em; }
+        #header > header p { margin-top: 0.6em; }
+        #header .cv-btn { margin-top: 0.9rem; }
+        #header > nav ul li a { padding: 0.6em 0; }
+        #header > footer { padding: 1.25em; }
+      }
+      @media screen and (min-width: 1025px) and (max-height: 960px) {
+        #header > header .avatar { width: 5em; margin-bottom: 0.9em; }
+        #header > header { padding: 1.5em 2em 1em; }
+        #header > nav ul li a { padding: 0.45em 0; }
+      }
+
+      .edu-card h4, .timeline h4 { color: #1f2633; }
+
+      /* ===== Voyages ===== */
+      .travel-wrap { position: relative; margin-top: 2rem; }
+      #travel-map {
+        height: 460px; border-radius: 14px; border: 1px solid var(--ligne);
+        box-shadow: 0 10px 30px rgba(27, 58, 143, 0.12); z-index: 1;
+      }
+      .map-reset {
+        position: absolute; top: 0.75rem; right: 0.75rem; z-index: 500;
+        background: #fff !important; color: var(--bleu) !important; border: 1.5px solid var(--bleu);
+        border-radius: 999px; padding: 0 0.9rem; height: 2rem; line-height: 2rem;
+        font-size: 0.78rem; font-weight: 600; letter-spacing: 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+        cursor: pointer;
+      }
+      .trip-grid { margin-top: 1.75rem; }
+      .trip-card { cursor: pointer; }
+      .trip-card .chips { margin-top: 0.75rem; }
+      .edu-card .when { display: block; line-height: 1.45; }
+      .trip-card.active { box-shadow: 0 0 0 2px var(--bleu), 0 14px 30px rgba(42, 82, 190, 0.18); }
+      html[data-theme="dark"] #travel-map { border-color: var(--ligne); box-shadow: none; background: #0e1422; }
+      html[data-theme="dark"] .map-reset { background: #151d30 !important; color: var(--accent) !important; border-color: var(--accent); }
+      html[data-theme="dark"] .trip-card.active { box-shadow: 0 0 0 2px var(--accent); }
+      @media screen and (max-width: 736px) { #travel-map { height: 360px; } }
+
+      /* ===== Section personnelle (polaroïds) ===== */
+      .polaroids {
+        display: grid; grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem; margin-top: 2rem;
+      }
+      @media screen and (max-width: 980px) { .polaroids { grid-template-columns: repeat(2, 1fr); } }
+      .polaroid {
+        margin: 0; background: #fff; padding: 0.6rem 0.6rem 0.9rem; border-radius: 4px;
+        box-shadow: 0 8px 24px rgba(20, 30, 60, 0.15); cursor: zoom-in;
+        transition: opacity 0.7s ease, transform 0.7s ease, rotate 0.3s ease, scale 0.3s ease, box-shadow 0.3s ease;
+      }
+      .polaroid:nth-child(4n + 1) { rotate: -2.5deg; }
+      .polaroid:nth-child(4n + 2) { rotate: 1.8deg; }
+      .polaroid:nth-child(4n + 3) { rotate: -1.2deg; }
+      .polaroid:nth-child(4n + 4) { rotate: 2.4deg; }
+      .polaroid:hover, .polaroid:focus-visible { rotate: 0deg; scale: 1.05; box-shadow: 0 16px 36px rgba(42, 82, 190, 0.25); outline: none; z-index: 2; position: relative; }
+      .polaroid .frame { aspect-ratio: 4 / 5; overflow: hidden; background: var(--bleu-pale); border-radius: 2px; position: relative; }
+      .polaroid img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .polaroid .frame.missing::after {
+        content: "Photo à venir"; position: absolute; inset: 0; display: flex;
+        align-items: center; justify-content: center; font-size: 0.85rem; color: var(--gris);
+      }
+      html[data-lang="en"] .polaroid .frame.missing::after { content: "Photo coming soon"; }
+      .polaroid figcaption {
+        margin-top: 0.8rem; font-size: 0.88rem; line-height: 1.45; text-align: center; color: #2b2f38;
+      }
+      html[data-theme="dark"] .polaroid { background: #1b2438; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45); }
+      html[data-theme="dark"] .polaroid figcaption { color: var(--texte); }
+
+      /* ===== Galerie plein écran ===== */
+      #lightbox {
+        position: fixed; inset: 0; z-index: 20000; background: rgba(8, 12, 22, 0.92);
+        display: none; align-items: center; justify-content: center; flex-direction: column;
+        padding: 3rem 4rem;
+      }
+      #lightbox.open { display: flex; }
+      #lightbox img { max-width: 100%; max-height: 78vh; border-radius: 6px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
+      #lightbox .lb-caption { color: #e8edf7; margin-top: 1rem; text-align: center; font-size: 0.95rem; max-width: 40rem; }
+      #lightbox button {
+        position: absolute; background: rgba(255, 255, 255, 0.12); color: #fff; border: 0;
+        width: 3rem; height: 3rem; border-radius: 50%; font-size: 1.4rem; line-height: 1;
+        cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 0;
+        box-shadow: none; transition: background 0.2s ease;
+      }
+      #lightbox button:hover { background: rgba(255, 255, 255, 0.25); }
+      #lightbox .lb-close { top: 1.25rem; right: 1.25rem; }
+      #lightbox .lb-prev { left: 1.25rem; top: 50%; transform: translateY(-50%); }
+      #lightbox .lb-next { right: 1.25rem; top: 50%; transform: translateY(-50%); }
+      @media screen and (max-width: 736px) {
+        #lightbox { padding: 4rem 1rem; }
+        #lightbox .lb-prev, #lightbox .lb-next { top: auto; bottom: 1.25rem; transform: none; }
+      }
       header.major h2 { color: var(--bleu) !important; }
       #main a { color: var(--bleu); }
       .button.primary { background-color: var(--bleu) !important; color: #fff !important; }
       .button.primary:hover { background-color: var(--bleu-fonce) !important; }
+      .button:not(.primary) { background-color: transparent !important; box-shadow: inset 0 0 0 2px var(--bleu) !important; color: var(--bleu) !important; }
+      .button:not(.primary):hover { background-color: var(--bleu-pale) !important; }
       section h3 { color: var(--bleu-fonce); }
 
       /* ===== Bilinguisme ===== */
       html[data-lang="en"] [data-l="fr"] { display: none !important; }
       html:not([data-lang="en"]) [data-l="en"] { display: none !important; }
 
-      #lang-toggle {
+      /* ===== Boutons flottants (langue et thème) ===== */
+      #toggles {
         position: fixed; left: 1.25rem; bottom: 1.25rem; z-index: 10002;
+        display: flex; gap: 0.5rem;
+      }
+      .toggle-btn {
         background: var(--bleu); color: #fff; border: 2px solid #fff;
-        border-radius: 999px; padding: 0.55rem 1.1rem; font-weight: 700;
-        font-size: 0.85rem; letter-spacing: 0.08em; cursor: pointer;
+        border-radius: 999px; padding: 0 1rem; min-width: 2.6rem; height: 2.4rem;
+        font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; cursor: pointer;
         box-shadow: 0 6px 20px rgba(27, 58, 143, 0.35);
         transition: transform 0.2s ease, background 0.2s ease;
-        line-height: 1; height: auto;
+        line-height: 1; display: inline-flex; align-items: center; justify-content: center;
       }
-      #lang-toggle:hover { transform: translateY(-2px); background: var(--bleu-fonce); }
+      .toggle-btn:hover { transform: translateY(-2px); background: var(--bleu-fonce); }
+      #theme-toggle { font-size: 1.05rem; letter-spacing: 0; padding: 0 0.75rem; }
+
+      /* ===== Mots-clés de recherche (en-tête) ===== */
+      .hero-chips { margin: -1rem 0 2rem !important; }
+      .hero-chips li { background: transparent !important; border: 1.5px solid var(--bleu); color: var(--bleu) !important; font-weight: 600 !important; }
+
+      /* ===== Recherche ===== */
+      .tag {
+        display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.04em; white-space: nowrap;
+        text-transform: uppercase; padding: 0.15rem 0.6rem; border-radius: 999px;
+        background: var(--bleu-pale); color: var(--bleu); margin-bottom: 0.6rem;
+      }
+      .tag.upcoming { background: var(--bleu); color: #fff; }
+      .edu-card .question { font-style: italic; color: var(--texte); }
 
       /* ===== Bouton CV dans la barre latérale ===== */
       #header .cv-btn {
@@ -149,18 +285,78 @@
       html.js-reveal .reveal.visible { opacity: 1; transform: none; }
       @media (prefers-reduced-motion: reduce) {
         html.js-reveal .reveal { opacity: 1; transform: none; transition: none; }
-        .skill-card, .edu-card, #lang-toggle { transition: none; }
+        .skill-card, .edu-card, .toggle-btn { transition: none; }
       }
+
+      /* ===== Mode sombre ===== */
+      html[data-theme="dark"] {
+        --texte: #c9d1e0;
+        --gris: #94a0b8;
+        --ligne: #26314a;
+        --bleu-pale: #1a2540;
+        --accent: #8eaaff;
+        color-scheme: dark;
+      }
+      html[data-theme="dark"] body,
+      html[data-theme="dark"] #wrapper,
+      html[data-theme="dark"] #main { background: #0e1422 !important; }
+      html[data-theme="dark"] body, html[data-theme="dark"] p, html[data-theme="dark"] li { color: var(--texte); }
+      html[data-theme="dark"] #main > section { border-top-color: #18203a !important; }
+      html[data-theme="dark"] h2, html[data-theme="dark"] h3, html[data-theme="dark"] h4, html[data-theme="dark"] strong { color: #e8edf7; }
+      html[data-theme="dark"] header.major h2,
+      html[data-theme="dark"] section h3,
+      html[data-theme="dark"] #main a,
+      html[data-theme="dark"] .stats .num,
+      html[data-theme="dark"] .when,
+      html[data-theme="dark"] .edu-card .when,
+      html[data-theme="dark"] .timeline .when { color: var(--accent) !important; }
+      html[data-theme="dark"] header.major h2 + p { color: var(--gris) !important; }
+      html[data-theme="dark"] .skill-card,
+      html[data-theme="dark"] .edu-card { background: #151d30; border-color: var(--ligne); box-shadow: none; }
+      html[data-theme="dark"] .edu-card { border-top-color: var(--accent); }
+      html[data-theme="dark"] .skill-card h4 { color: #c8d6ff; }
+      html[data-theme="dark"] .chips li { color: #c8d6ff; }
+      html[data-theme="dark"] .hero-chips li { border-color: var(--accent); color: var(--accent) !important; }
+      html[data-theme="dark"] .tag { color: var(--accent); }
+      html[data-theme="dark"] .tag.upcoming { background: var(--accent); color: #0e1422; }
+      html[data-theme="dark"] .edu-card .question { color: var(--texte); }
+      html[data-theme="dark"] .timeline > li::before { background: #0e1422; border-color: var(--accent); }
+      html[data-theme="dark"] .timeline > li:hover::before { background: var(--accent); }
+      html[data-theme="dark"] .timeline::before { background: linear-gradient(var(--accent), #1a2540); }
+      html[data-theme="dark"] .button:not(.primary) { color: var(--texte) !important; box-shadow: inset 0 0 0 2px #3a4766 !important; }
+      html[data-theme="dark"] #footer { background: #0a0f1a !important; }
+      html[data-theme="dark"] #footer .copyright li, html[data-theme="dark"] #footer .copyright li a { color: #6b7896 !important; border-color: #26314a !important; }
+      html[data-theme="dark"] #map { border-color: var(--ligne); box-shadow: none; background: #0e1422; }
+      html[data-theme="dark"] .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.85) contrast(0.9); }
+      html[data-theme="dark"] .leaflet-popup-content-wrapper,
+      html[data-theme="dark"] .leaflet-popup-tip { background: #151d30; color: var(--texte); }
+      html[data-theme="dark"] .leaflet-popup-content strong { color: #c8d6ff; }
+      html[data-theme="dark"] .leaflet-bar a { background: #151d30; color: var(--texte); border-color: var(--ligne); }
+      html[data-theme="dark"] .leaflet-control-attribution { background: rgba(14, 20, 34, 0.8) !important; color: var(--gris); }
+      html[data-theme="dark"] .map-legend .lg-future::before { background: #0e1422; border-color: var(--accent); }
+      html[data-theme="dark"] .map-legend .lg-past::before { background: var(--accent); }
 
       @media screen and (max-width: 736px) {
         #map { height: 340px; }
-        #lang-toggle { left: 0.9rem; bottom: 0.9rem; }
+        #toggles { left: 0.9rem; bottom: 0.9rem; }
       }
     </style>
   </head>
   <body class="is-preload">
-    <!-- Bouton de langue -->
-    <button id="lang-toggle" type="button" aria-label="Switch to English">EN</button>
+    <!-- Galerie plein écran -->
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Photo">
+      <button class="lb-close" type="button" aria-label="Fermer">×</button>
+      <button class="lb-prev" type="button" aria-label="Précédente">❮</button>
+      <img alt="" />
+      <p class="lb-caption"></p>
+      <button class="lb-next" type="button" aria-label="Suivante">❯</button>
+    </div>
+
+    <!-- Boutons langue et thème -->
+    <div id="toggles">
+      <button id="lang-toggle" class="toggle-btn" type="button" aria-label="Switch to English">EN</button>
+      <button id="theme-toggle" class="toggle-btn" type="button" aria-label="Mode sombre">☾</button>
+    </div>
 
     <!-- Header -->
     <section id="header">
@@ -179,9 +375,12 @@
         <ul>
           <li><a href="#one" class="active"><span data-l="fr">À propos</span><span data-l="en">About</span></a></li>
           <li><a href="#two"><span data-l="fr">Compétences</span><span data-l="en">Skills</span></a></li>
-          <li><a href="#carte"><span data-l="fr">Mon parcours</span><span data-l="en">My path</span></a></li>
+          <li><a href="#recherche"><span data-l="fr">Recherche</span><span data-l="en">Research</span></a></li>
           <li><a href="#three"><span data-l="fr">Formation</span><span data-l="en">Education</span></a></li>
           <li><a href="#five"><span data-l="fr">Expérience</span><span data-l="en">Experience</span></a></li>
+          <li><a href="#conferences"><span data-l="fr">Conférences</span><span data-l="en">Conferences</span></a></li>
+          <li><a href="#voyages"><span data-l="fr">Voyages</span><span data-l="en">Travels</span></a></li>
+          <li><a href="#perso"><span data-l="fr">Un peu de moi</span><span data-l="en">A bit about me</span></a></li>
           <li><a href="#four">Contact</a></li>
         </ul>
       </nav>
@@ -209,6 +408,14 @@
               <p data-l="fr">Sécurité internationale, défense et politique étrangère.</p>
               <p data-l="en">International security, defence and foreign policy.</p>
             </header>
+            <ul class="chips hero-chips reveal">
+              <li><span data-l="fr">Sécurité internationale</span><span data-l="en">International security</span></li>
+              <li><span data-l="fr">Défense</span><span data-l="en">Defence</span></li>
+              <li><span data-l="fr">OTAN</span><span data-l="en">NATO</span></li>
+              <li><span data-l="fr">Industrie de défense</span><span data-l="en">Defence industry</span></li>
+              <li><span data-l="fr">Politique étrangère canadienne</span><span data-l="en">Canadian foreign policy</span></li>
+              <li><span data-l="fr">Infrastructures critiques</span><span data-l="en">Critical infrastructure</span></li>
+            </ul>
             <div class="reveal">
               <p data-l="fr">
                 Je fais une maîtrise en études internationales à l'École supérieure
@@ -299,16 +506,31 @@
           </div>
         </section>
 
-        <!-- ===== Carte interactive ===== -->
-        <section id="carte">
+        <!-- ===== Recherche ===== -->
+        <section id="recherche">
           <div class="container">
-            <h3 class="reveal"><span data-l="fr">Mon parcours sur la carte</span><span data-l="en">My path on the map</span></h3>
-            <p class="reveal" data-l="fr">De Saint-Hyacinthe à Washington : les lieux qui ont façonné mon parcours en études internationales. Cliquez sur un point.</p>
-            <p class="reveal" data-l="en">From Saint-Hyacinthe to Washington: the places that shaped my path in international studies. Click a point.</p>
-            <div id="map" class="reveal" role="region" aria-label="Carte du parcours"></div>
-            <div class="map-legend">
-              <span class="lg-past"><span data-l="fr">Étape réalisée</span><span data-l="en">Completed</span></span>
-              <span class="lg-future"><span data-l="fr">À venir</span><span data-l="en">Upcoming</span></span>
+            <h3 class="reveal"><span data-l="fr">Recherche en cours</span><span data-l="en">Current research</span></h3>
+            <p class="reveal" data-l="fr">Les questions sur lesquelles je travaille cette année à la maîtrise.</p>
+            <p class="reveal" data-l="en">The questions I am working on this year in my Master's program.</p>
+            <div class="edu-grid">
+              <article class="edu-card reveal">
+                <span class="tag"><span data-l="fr">Devis de recherche</span><span data-l="en">Research proposal</span></span>
+                <h4><span data-l="fr">Acheter américain ou européen ?</span><span data-l="en">Buy American or European?</span></h4>
+                <p class="question"><span data-l="fr">Pourquoi des alliés européens achètent-ils leurs armes aux États-Unis plutôt qu'en Europe ?</span><span data-l="en">Why do European allies buy their weapons from the United States rather than from Europe?</span></p>
+                <p><span data-l="fr">Cadre théorique réaliste.</span><span data-l="en">Realist theoretical framework.</span></p>
+              </article>
+              <article class="edu-card reveal">
+                <span class="tag"><span data-l="fr">Projet interdisciplinaire</span><span data-l="en">Interdisciplinary project</span></span>
+                <h4><span data-l="fr">Chaînes d'approvisionnement militaires</span><span data-l="en">Military supply chains</span></h4>
+                <p class="question"><span data-l="fr">En quoi la transformation des chaînes d'approvisionnement militaires du Canada affecte-t-elle ses relations commerciales avec les États-Unis ?</span><span data-l="en">How does the transformation of Canada's military supply chains affect its trade relations with the United States?</span></p>
+                <p><span data-l="fr">Travail d'équipe en science politique et en économie.</span><span data-l="en">Team project combining political science and economics.</span></p>
+              </article>
+              <article class="edu-card reveal">
+                <span class="tag"><span data-l="fr">Note politique</span><span data-l="en">Policy brief</span></span>
+                <h4><span data-l="fr">Modernisation des feux indirects</span><span data-l="en">Indirect fires modernization</span></h4>
+                <p class="question"><span data-l="fr">Le Grizzly LAV 10x10 et le programme de modernisation des feux indirects de l'Armée canadienne.</span><span data-l="en">The Grizzly LAV 10x10 and the Canadian Army's indirect fires modernization program.</span></p>
+                <p><span data-l="fr">Note d'information au gouvernement.</span><span data-l="en">Briefing note to government.</span></p>
+              </article>
             </div>
           </div>
         </section>
@@ -372,28 +594,6 @@
                 </ul>
               </li>
               <li class="reveal">
-                <span class="when">2026</span>
-                <h4><span data-l="fr">Rapporteur</span><span data-l="en">Rapporteur</span></h4>
-                <p class="org"><span data-l="fr">Sommet sur la sécurité climatique de Montréal (CCASCOE de l'OTAN et CDA Institute)</span><span data-l="en">Montréal Climate Security Summit (NATO CCASCOE and CDA Institute)</span></p>
-                <ul>
-                  <li data-l="fr">Prise de notes pour le compte rendu officiel des discussions sur le climat, la sécurité et la défense.</li>
-                  <li data-l="en">Took notes for the official report on discussions linking climate, security and defence.</li>
-                </ul>
-              </li>
-              <li class="reveal">
-                <span class="when"><span data-l="fr">Mars 2026</span><span data-l="en">March 2026</span></span>
-                <h4><span data-l="fr">Délégué étudiant</span><span data-l="en">Student Delegate</span></h4>
-                <p class="org"><span data-l="fr">Conférence d'Ottawa sur la sécurité et la défense (CDA Institute)</span><span data-l="en">Ottawa Conference on Security and Defence (CDA Institute)</span></p>
-                <ul>
-                  <li data-l="fr">Accueilli plus de 500 participants au sein de l'équipe de bénévoles.</li>
-                  <li data-l="en">Welcomed more than 500 attendees as part of the volunteer team.</li>
-                  <li data-l="fr">Rédigé des notes structurées sur les panels de défense et de politique stratégique.</li>
-                  <li data-l="en">Prepared structured notes on defence and strategic policy panels.</li>
-                  <li data-l="fr">Échangé avec des praticiens de neuf pays.</li>
-                  <li data-l="en">Engaged with practitioners from nine countries.</li>
-                </ul>
-              </li>
-              <li class="reveal">
                 <span class="when"><span data-l="fr">Hiver 2026</span><span data-l="en">Winter 2026</span></span>
                 <h4><span data-l="fr">Auxiliaire d'enseignement</span><span data-l="en">Teaching Assistant</span></h4>
                 <p class="org"><span data-l="fr">POL338, droit international et droits de la personne, Université Bishop's</span><span data-l="en">POL338, International Law and Human Rights, Bishop's University</span></p>
@@ -402,17 +602,6 @@
                   <li data-l="en">Supported more than 30 students with assignments and exams.</li>
                   <li data-l="fr">Animé des discussions et participé à la correction.</li>
                   <li data-l="en">Facilitated discussions and helped with marking.</li>
-                </ul>
-              </li>
-              <li class="reveal">
-                <span class="when"><span data-l="fr">2024 à 2026</span><span data-l="en">2024 to 2026</span></span>
-                <h4><span data-l="fr">Délégué, Model United Nations</span><span data-l="en">Model United Nations Delegate</span></h4>
-                <p class="org"><span data-l="fr">Université Bishop's, Sherbrooke et New York</span><span data-l="en">Bishop's University, Sherbrooke and New York</span></p>
-                <ul>
-                  <li data-l="fr">Représenté la Norvège (TNP, NMUN New York), les Pays-Bas et les États-Unis.</li>
-                  <li data-l="en">Represented Norway (NPT, NMUN New York), the Netherlands and the United States.</li>
-                  <li data-l="fr">Rédigé des exposés de position sur le contrôle des armements.</li>
-                  <li data-l="en">Drafted position papers on arms control.</li>
                 </ul>
               </li>
               <li class="reveal">
@@ -430,6 +619,142 @@
                 <p class="org"><span data-l="fr">Héma-Québec, semaine d'orientation et portes ouvertes de l'Université Bishop's</span><span data-l="en">Héma-Québec, Bishop's University orientation week and open house</span></p>
               </li>
             </ul>
+          </div>
+        </section>
+
+        <!-- ===== Conférences et simulations ===== -->
+        <section id="conferences">
+          <div class="container">
+            <h3 class="reveal"><span data-l="fr">Conférences et simulations</span><span data-l="en">Conferences and simulations</span></h3>
+            <p class="reveal" data-l="fr">Les événements où j'ai organisé, représenté un pays ou pris des notes pour un compte rendu.</p>
+            <p class="reveal" data-l="en">Events where I organized, represented a country, or took notes for an official report.</p>
+            <ul class="timeline">
+              <li class="reveal">
+                <span class="tag upcoming"><span data-l="fr">À venir</span><span data-l="en">Upcoming</span></span><br />
+                <span class="when"><span data-l="fr">Février 2027 · Washington</span><span data-l="en">February 2027 · Washington</span></span>
+                <h4>International Model NATO</h4>
+                <p class="org"><span data-l="fr">Délégué, OTAN UL (Université Laval)</span><span data-l="en">Delegate, OTAN UL (Université Laval)</span></p>
+              </li>
+              <li class="reveal">
+                <span class="tag upcoming"><span data-l="fr">À venir</span><span data-l="en">Upcoming</span></span><br />
+                <span class="when"><span data-l="fr">20 février 2027 · Sherbrooke</span><span data-l="en">February 20, 2027 · Sherbrooke</span></span>
+                <h4>Canadian Undergraduate Security Conference 2027</h4>
+                <p class="org"><span data-l="fr">Comité organisateur, 10e édition, Université Bishop's</span><span data-l="en">Organizing committee, 10th edition, Bishop's University</span></p>
+                <ul>
+                  <li data-l="fr">Thème : « Au-delà de la défense : industrie, souveraineté et stratégie ».</li>
+                  <li data-l="en">Theme: "Beyond Defence: Industry, Sovereignty and Strategy".</li>
+                </ul>
+              </li>
+              <li class="reveal">
+                <span class="when"><span data-l="fr">Octobre 2026 · Montréal</span><span data-l="en">October 2026 · Montréal</span></span>
+                <h4><span data-l="fr">Sommet sur la sécurité climatique de Montréal</span><span data-l="en">Montréal Climate Security Summit</span></h4>
+                <p class="org"><span data-l="fr">Rapporteur, CCASCOE de l'OTAN et CDA Institute</span><span data-l="en">Rapporteur, NATO CCASCOE and CDA Institute</span></p>
+                <ul>
+                  <li data-l="fr">Prise de notes pour le compte rendu officiel des discussions sur le climat, la sécurité et la défense.</li>
+                  <li data-l="en">Took notes for the official report on discussions linking climate, security and defence.</li>
+                </ul>
+              </li>
+              <li class="reveal">
+                <span class="when"><span data-l="fr">Mars 2026 · Ottawa</span><span data-l="en">March 2026 · Ottawa</span></span>
+                <h4><span data-l="fr">94e Conférence d'Ottawa sur la sécurité et la défense</span><span data-l="en">94th Ottawa Conference on Security and Defence</span></h4>
+                <p class="org"><span data-l="fr">Délégué étudiant, CDA Institute</span><span data-l="en">Student delegate, CDA Institute</span></p>
+                <ul>
+                  <li data-l="fr">Accueilli plus de 500 participants au sein de l'équipe de bénévoles.</li>
+                  <li data-l="en">Welcomed more than 500 attendees as part of the volunteer team.</li>
+                  <li data-l="fr">Rédigé des notes structurées sur les panels de défense et de politique stratégique.</li>
+                  <li data-l="en">Prepared structured notes on defence and strategic policy panels.</li>
+                  <li data-l="fr">Échangé avec des praticiens de neuf pays.</li>
+                  <li data-l="en">Engaged with practitioners from nine countries.</li>
+                </ul>
+              </li>
+              <li class="reveal">
+                <span class="when">2026 · New York</span>
+                <h4>National Model United Nations</h4>
+                <p class="org"><span data-l="fr">Délégué de la Norvège, Conférence d'examen du TNP</span><span data-l="en">Delegate of Norway, NPT Review Conference</span></p>
+                <ul>
+                  <li data-l="fr">Rédigé des exposés de position sur le contrôle des armements.</li>
+                  <li data-l="en">Drafted position papers on arms control.</li>
+                  <li data-l="fr">Échangé avec l'ambassadrice de la Norvège auprès des Nations Unies.</li>
+                  <li data-l="en">Met with Norway's Ambassador to the United Nations.</li>
+                </ul>
+              </li>
+              <li class="reveal">
+                <span class="when"><span data-l="fr">2025 à 2026 · Québec et Sherbrooke</span><span data-l="en">2025 to 2026 · Québec and Sherbrooke</span></span>
+                <h4><span data-l="fr">Autres simulations et compétitions</span><span data-l="en">Other simulations and competitions</span></h4>
+                <ul>
+                  <li data-l="fr">QMUN : délégué des Pays-Bas à l'Organisation internationale du travail.</li>
+                  <li data-l="en">QMUN: Netherlands delegate to the International Labour Organization.</li>
+                  <li data-l="fr">MUN Bishop's et Sherbrooke : délégué des États-Unis à l'Assemblée générale.</li>
+                  <li data-l="en">Bishop's and Sherbrooke MUN: United States delegate to the General Assembly.</li>
+                  <li data-l="fr">Jeux de la science politique : épreuve de quiz, délégation de l'Université Bishop's.</li>
+                  <li data-l="en">Jeux de la science politique: quiz competition, Bishop's University delegation.</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ===== Carte interactive ===== -->
+        <section id="carte">
+          <div class="container">
+            <h3 class="reveal"><span data-l="fr">Mon parcours sur la carte</span><span data-l="en">My path on the map</span></h3>
+            <p class="reveal" data-l="fr">De Saint-Hyacinthe à Washington : les lieux qui ont façonné mon parcours en études internationales. Cliquez sur un point.</p>
+            <p class="reveal" data-l="en">From Saint-Hyacinthe to Washington: the places that shaped my path in international studies. Click a point.</p>
+            <div id="map" class="reveal" role="region" aria-label="Carte du parcours"></div>
+            <div class="map-legend">
+              <span class="lg-past"><span data-l="fr">Étape réalisée</span><span data-l="en">Completed</span></span>
+              <span class="lg-future"><span data-l="fr">À venir</span><span data-l="en">Upcoming</span></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== Mes voyages ===== -->
+        <section id="voyages">
+          <div class="container">
+            <h3 class="reveal"><span data-l="fr">Mes voyages</span><span data-l="en">My travels</span></h3>
+            <p class="reveal" data-l="fr">Bien avant les études internationales, il y a eu les voyages. Cliquez sur un pays pour zoomer sur la carte.</p>
+            <p class="reveal" data-l="en">Long before international studies, there was travel. Click a country to zoom in on the map.</p>
+            <ul class="stats reveal">
+              <li><span class="num" data-count="8">0</span><span class="lbl" data-l="fr">pays visités, en plus de Gibraltar</span><span class="lbl" data-l="en">countries visited, plus Gibraltar</span></li>
+              <li><span class="num" id="place-count" data-count="20">0</span><span class="lbl" data-l="fr">villes et régions sur la carte</span><span class="lbl" data-l="en">cities and regions on the map</span></li>
+              <li><span class="num" data-count="3" data-plain="1">0</span><span class="lbl" data-l="fr">ans lors de mon premier voyage, en Argentine</span><span class="lbl" data-l="en">years old on my first trip, to Argentina</span></li>
+            </ul>
+            <div class="travel-wrap reveal">
+              <div id="travel-map" role="region" aria-label="Carte des voyages"></div>
+              <button id="travel-reset" type="button" class="map-reset">
+                <span data-l="fr">Voir tout</span><span data-l="en">Show all</span>
+              </button>
+            </div>
+            <div id="trip-grid" class="edu-grid trip-grid"></div>
+          </div>
+        </section>
+
+        <!-- ===== Un peu de moi (section personnelle) ===== -->
+        <!-- Les photos vont dans le dossier images, avec ces noms : perso-argentine, perso-6ans, perso-tremblant, perso-cooper
+             (.jpg, .jpeg ou .png, majuscules ou minuscules : le site trouve la bonne extension tout seul) -->
+        <section id="perso">
+          <div class="container">
+            <h3 class="reveal"><span data-l="fr">Un peu de moi</span><span data-l="en">A bit about me</span></h3>
+            <p class="reveal" data-l="fr">Avant les conférences et les simulations, il y a eu tout ça. Cliquez sur une photo pour l'agrandir.</p>
+            <p class="reveal" data-l="en">Before the conferences and simulations, there was all this. Click a photo to enlarge it.</p>
+            <div class="polaroids">
+              <figure class="polaroid reveal" tabindex="0">
+                <div class="frame"><img data-base="images/perso-argentine" alt="" /></div>
+                <figcaption><span data-l="fr">Petit, dans un bac de sable en Argentine.</span><span data-l="en">As a kid, in a sandbox in Argentina.</span></figcaption>
+              </figure>
+              <figure class="polaroid reveal" tabindex="0">
+                <div class="frame"><img data-base="images/perso-6ans" alt="" style="object-position: 74% 50%;" /></div>
+                <figcaption><span data-l="fr">Mes 6 ans en classe, aux couleurs de l'équipe nationale d'Argentine.</span><span data-l="en">My 6th birthday at school, in Argentina's national team colours.</span></figcaption>
+              </figure>
+              <figure class="polaroid reveal" tabindex="0">
+                <div class="frame"><img data-base="images/perso-tremblant" alt="" style="object-position: 52% 50%;" /></div>
+                <figcaption><span data-l="fr">Dans la télécabine du Mont-Tremblant.</span><span data-l="en">In the Mont-Tremblant gondola.</span></figcaption>
+              </figure>
+              <figure class="polaroid reveal" tabindex="0">
+                <div class="frame"><img data-base="images/perso-cooper" alt="" style="object-position: 50% 30%;" /></div>
+                <figcaption><span data-l="fr">Cooper, le chien de ma sœur, et son sens de la mode.</span><span data-l="en">Cooper, my sister's dog, and his sense of style.</span></figcaption>
+              </figure>
+            </div>
           </div>
         </section>
 
@@ -507,6 +832,23 @@
 
         btn.addEventListener("click", function () {
           setLang(html.getAttribute("data-lang") === "fr" ? "en" : "fr");
+          updateThemeButton();
+        });
+
+        /* ---------- 1 b. Mode sombre ---------- */
+        var themeBtn = document.getElementById("theme-toggle");
+        function updateThemeButton() {
+          var dark = html.getAttribute("data-theme") === "dark";
+          var en = html.getAttribute("data-lang") === "en";
+          themeBtn.textContent = dark ? "☀" : "☾";
+          themeBtn.setAttribute("aria-label", dark ? (en ? "Light mode" : "Mode clair") : (en ? "Dark mode" : "Mode sombre"));
+          themeBtn.setAttribute("title", themeBtn.getAttribute("aria-label"));
+        }
+        themeBtn.addEventListener("click", function () {
+          var next = html.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          html.setAttribute("data-theme", next);
+          try { localStorage.setItem("theme", next); } catch (e) {}
+          updateThemeButton();
         });
 
         /* ---------- 2. Carte interactive ---------- */
@@ -542,38 +884,40 @@
           return "<strong>" + p[0] + "</strong><br>" + p[1];
         }
 
+        /* Fonds de carte sans clé : Esri (gris pâle), puis OpenStreetMap en secours */
+        var tileSources = [
+          {
+            url: "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+            options: { attribution: "Tiles &copy; Esri", maxZoom: 16 }
+          },
+          {
+            url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+            options: {
+              attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+              maxZoom: 18,
+              referrerPolicy: "strict-origin-when-cross-origin"
+            }
+          }
+        ];
+        function addTiles(m, i) {
+          i = i || 0;
+          if (i >= tileSources.length) return;
+          var layer = L.tileLayer(tileSources[i].url, tileSources[i].options).addTo(m);
+          var errors = 0, loaded = 0;
+          layer.on("tileload", function () { loaded++; });
+          layer.on("tileerror", function () {
+            errors++;
+            if (errors === 3 && loaded === 0) {
+              m.removeLayer(layer);
+              addTiles(m, i + 1);
+            }
+          });
+        }
+
         var mapEl = document.getElementById("map");
         if (window.L && mapEl) {
           var map = L.map(mapEl, { scrollWheelZoom: false, worldCopyJump: true });
-          /* Fonds de carte sans clé : Esri (gris pâle), puis OpenStreetMap en secours */
-          var tileSources = [
-            {
-              url: "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
-              options: { attribution: "Tiles &copy; Esri", maxZoom: 16 }
-            },
-            {
-              url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-              options: {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-                maxZoom: 18,
-                referrerPolicy: "strict-origin-when-cross-origin"
-              }
-            }
-          ];
-          function addTiles(i) {
-            if (i >= tileSources.length) return;
-            var layer = L.tileLayer(tileSources[i].url, tileSources[i].options).addTo(map);
-            var errors = 0, loaded = 0;
-            layer.on("tileload", function () { loaded++; });
-            layer.on("tileerror", function () {
-              errors++;
-              if (errors === 3 && loaded === 0) {
-                map.removeLayer(layer);
-                addTiles(i + 1);
-              }
-            });
-          }
-          addTiles(0);
+          addTiles(map);
 
           var bounds = [];
           places.forEach(function (place) {
@@ -601,10 +945,243 @@
           mapEl.style.display = "none";
         }
 
+        /* ---------- 2 a. Mes voyages ---------- */
+        /* Pour ajouter un voyage : copie un bloc { ... } ci-dessous et change le texte et les coordonnées.
+           Un arrêt avec wp: true sert seulement à dessiner le trajet (pas de point sur la carte). */
+        var trips = [
+          { fr: ["Argentine", "À 3 ans, puis juin et début juillet 2019", "Deux séjours, dont celui de la photo du bac de sable."],
+            en: ["Argentina", "At age 3, then June to early July 2019", "Two trips, including the one from the sandbox photo."],
+            stops: [{ fr: "Argentine", en: "Argentina", lat: -34.6037, lng: -58.3816 }] },
+          { fr: ["Côte est des États-Unis", "Chaque été depuis l'âge de 4 ans", "Des étés à descendre la côte, souvent jusqu'en Floride."],
+            en: ["U.S. East Coast", "Every summer since age 4", "Summers driving down the coast, often all the way to Florida."],
+            route: true,
+            stops: [
+              { wp: true, lat: 43.66, lng: -70.26 }, { wp: true, lat: 42.36, lng: -71.06 },
+              { wp: true, lat: 40.71, lng: -74.0 }, { wp: true, lat: 36.85, lng: -75.98 },
+              { wp: true, lat: 33.69, lng: -78.89 }, { wp: true, lat: 30.33, lng: -81.66 },
+              { fr: "Floride", en: "Florida", lat: 26.12, lng: -80.14 }
+            ] },
+          { fr: ["Hawaï, États-Unis", "2018", "Le voyage le plus loin vers l'ouest."],
+            en: ["Hawaii, United States", "2018", "My farthest trip west."],
+            stops: [{ fr: "Hawaï", en: "Hawaii", lat: 21.3069, lng: -157.8583 }] },
+          { fr: ["France", "Été 2023", "De Paris à la Côte d'Azur, de Menton à Montpellier, puis Bordeaux et retour à Paris."],
+            en: ["France", "Summer 2023", "From Paris to the Riviera, from Menton to Montpellier, then Bordeaux and back to Paris."],
+            stops: [
+              { fr: "Paris", en: "Paris", lat: 48.8566, lng: 2.3522 },
+              { fr: "Reims", en: "Reims", lat: 49.2583, lng: 4.0317 },
+              { fr: "Lyon", en: "Lyon", lat: 45.764, lng: 4.8357 },
+              { fr: "Chambly", en: "Chambly", lat: 49.1667, lng: 2.25 },
+              { fr: "Clermont-Ferrand", en: "Clermont-Ferrand", lat: 45.7772, lng: 3.087 },
+              { fr: "Saint-Étienne-le-Molard", en: "Saint-Étienne-le-Molard", lat: 45.7386, lng: 4.0889 },
+              { fr: "Saint-Étienne", en: "Saint-Étienne", lat: 45.4397, lng: 4.3872 },
+              { fr: "Menton", en: "Menton", lat: 43.7747, lng: 7.4975 },
+              { fr: "Montpellier", en: "Montpellier", lat: 43.6108, lng: 3.8767 },
+              { fr: "Bordeaux", en: "Bordeaux", lat: 44.8378, lng: -0.5792 }
+            ],
+            coast: [[43.7747, 7.4975], [43.7102, 7.262], [43.5528, 7.0174], [43.1242, 5.928], [43.2965, 5.3698], [43.4045, 4.9883], [43.6108, 3.8767]] },
+          { fr: ["Espagne et Gibraltar", "", "La Costa del Sol, avec un détour par le rocher de Gibraltar."],
+            en: ["Spain and Gibraltar", "", "The Costa del Sol, with a detour to the Rock of Gibraltar."],
+            stops: [
+              { fr: "Malaga", en: "Málaga", lat: 36.7213, lng: -4.4214 },
+              { fr: "Marbella", en: "Marbella", lat: 36.5101, lng: -4.8825 },
+              { fr: "Gibraltar", en: "Gibraltar", lat: 36.1408, lng: -5.3536 }
+            ] },
+          { fr: ["Écosse, Royaume-Uni", "", "Les deux grandes villes écossaises."],
+            en: ["Scotland, United Kingdom", "", "Scotland's two major cities."],
+            stops: [
+              { fr: "Édimbourg", en: "Edinburgh", lat: 55.9533, lng: -3.1883 },
+              { fr: "Glasgow", en: "Glasgow", lat: 55.8642, lng: -4.2518 }
+            ] },
+          { fr: ["Danemark", "2025", "Un passage à Copenhague pendant mon échange au Royaume-Uni."],
+            en: ["Denmark", "2025", "A stop in Copenhagen during my exchange in the UK."],
+            stops: [{ fr: "Copenhague", en: "Copenhagen", lat: 55.6761, lng: 12.5683 }] },
+          { fr: ["Suisse", "", "Genève, ville des organisations internationales."],
+            en: ["Switzerland", "", "Geneva, home of international organizations."],
+            stops: [{ fr: "Genève", en: "Geneva", lat: 46.2044, lng: 6.1432 }] },
+          { fr: ["Portugal", "", "L'Algarve, au sud du pays."],
+            en: ["Portugal", "", "The Algarve, in the south of the country."],
+            stops: [{ fr: "Faro", en: "Faro", lat: 37.0194, lng: -7.9322 }] }
+        ];
+
+        /* Fiches par pays */
+        var tripGrid = document.getElementById("trip-grid");
+        var placeCount = 0;
+        trips.forEach(function (trip, idx) {
+          var named = trip.stops.filter(function (s) { return !s.wp; });
+          placeCount += named.length;
+          function side(lang) {
+            var t = trip[lang];
+            var chips = named.map(function (s) { return "<li>" + s[lang] + "</li>"; }).join("");
+            return '<div data-l="' + lang + '">' +
+              (t[1] ? '<span class="when">' + t[1] + "</span>" : "") +
+              "<h4>" + t[0] + "</h4>" +
+              "<p>" + t[2] + "</p>" +
+              (named.length > 1 ? '<ul class="chips">' + chips + "</ul>" : "") +
+              "</div>";
+          }
+          var card = document.createElement("article");
+          card.className = "edu-card trip-card reveal";
+          card.tabIndex = 0;
+          card.setAttribute("data-trip", idx);
+          card.innerHTML = side("fr") + side("en");
+          if (tripGrid) tripGrid.appendChild(card);
+        });
+        var placeStat = document.getElementById("place-count");
+        if (placeStat) placeStat.setAttribute("data-count", placeCount);
+
+        /* Carte des voyages */
+        var travelEl = document.getElementById("travel-map");
+        var travelMap = null, tripLayers = [];
+        if (window.L && travelEl) {
+          travelMap = L.map(travelEl, { scrollWheelZoom: false, worldCopyJump: true, minZoom: 1 });
+          addTiles(travelMap);
+          var allPts = [];
+          trips.forEach(function (trip, idx) {
+            var pts = [];
+            trip.stops.forEach(function (s) {
+              pts.push([s.lat, s.lng]);
+              if (s.wp) return;
+              var mk = L.circleMarker([s.lat, s.lng], {
+                radius: 7, color: "#ffffff", weight: 2, fillColor: "#2a52be", fillOpacity: 1
+              }).addTo(travelMap);
+              var place = {
+                fr: [s.fr, trip.fr[0] + (trip.fr[1] ? " · " + trip.fr[1] : "")],
+                en: [s.en, trip.en[0] + (trip.en[1] ? " · " + trip.en[1] : "")]
+              };
+              mk.bindPopup(popupHtml(place, "fr"));
+              markers.push({ marker: mk, place: place });
+            });
+            var lineStyle = { color: "#2a52be", weight: 3, opacity: 0.55, dashArray: "2 7", lineCap: "round" };
+            if (trip.route) {
+              var line = L.polyline(pts, lineStyle).addTo(travelMap);
+              var routePlace = { fr: [trip.fr[0], trip.fr[2]], en: [trip.en[0], trip.en[2]] };
+              line.bindPopup(popupHtml(routePlace, "fr"));
+              markers.push({ marker: line, place: routePlace });
+            }
+            if (trip.coast) {
+              var coast = L.polyline(trip.coast, lineStyle).addTo(travelMap);
+              var coastPlace = {
+                fr: ["Côte méditerranéenne", "Toute la côte, de Menton à Montpellier."],
+                en: ["Mediterranean coast", "The whole coast, from Menton to Montpellier."]
+              };
+              coast.bindPopup(popupHtml(coastPlace, "fr"));
+              markers.push({ marker: coast, place: coastPlace });
+            }
+            tripLayers[idx] = pts;
+            allPts = allPts.concat(pts);
+          });
+          /* Point de départ : Québec */
+          L.circleMarker([46.8139, -71.208], { radius: 8, color: "#2a52be", weight: 3, fillColor: "#ffffff", fillOpacity: 1 })
+            .addTo(travelMap)
+            .bindTooltip("Québec", { direction: "top", offset: [0, -6] });
+          allPts.push([46.8139, -71.208]);
+
+          var fitAll = function () { travelMap.fitBounds(allPts, { padding: [20, 20] }); };
+          fitAll();
+          window.addEventListener("load", function () { travelMap.invalidateSize(); fitAll(); });
+
+          /* Cliquer une fiche : la carte zoome sur ce voyage */
+          document.querySelectorAll(".trip-card").forEach(function (card) {
+            function go() {
+              var pts = tripLayers[parseInt(card.getAttribute("data-trip"), 10)];
+              document.querySelectorAll(".trip-card.active").forEach(function (c) { c.classList.remove("active"); });
+              card.classList.add("active");
+              travelEl.scrollIntoView({ behavior: "smooth", block: "center" });
+              setTimeout(function () {
+                if (pts.length === 1) travelMap.flyTo(pts[0], 6, { duration: 1.2 });
+                else travelMap.flyToBounds(pts, { padding: [40, 40], maxZoom: 7, duration: 1.2 });
+              }, 350);
+            }
+            card.addEventListener("click", go);
+            card.addEventListener("keydown", function (e) {
+              if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); }
+            });
+          });
+          var resetBtn = document.getElementById("travel-reset");
+          if (resetBtn) resetBtn.addEventListener("click", function () {
+            document.querySelectorAll(".trip-card.active").forEach(function (c) { c.classList.remove("active"); });
+            travelMap.flyToBounds(allPts, { padding: [20, 20], duration: 1 });
+          });
+        } else if (travelEl) {
+          travelEl.style.display = "none";
+        }
+
         /* Langue enregistrée (après la carte, pour traduire les bulles) */
         var saved = "fr";
         try { saved = localStorage.getItem("lang") || "fr"; } catch (e) {}
         setLang(saved === "en" ? "en" : "fr");
+        updateThemeButton();
+
+        /* ---------- 2 b. Photos personnelles : essaie chaque extension ---------- */
+        var exts = [".jpg", ".JPG", ".jpeg", ".JPEG", ".png", ".PNG", ".webp"];
+        document.querySelectorAll("img[data-base]").forEach(function (img) {
+          var base = img.getAttribute("data-base"), i = 0;
+          img.addEventListener("error", function () {
+            i++;
+            if (i < exts.length) img.src = base + exts[i];
+            else { img.removeAttribute("src"); img.style.display = "none"; img.parentNode.classList.add("missing"); }
+          });
+          img.src = base + exts[0];
+        });
+
+        /* ---------- 2 c. Galerie plein écran ---------- */
+        var lb = document.getElementById("lightbox");
+        var lbImg = lb.querySelector("img");
+        var lbCap = lb.querySelector(".lb-caption");
+        var shots = Array.prototype.slice.call(document.querySelectorAll(".polaroid"));
+        var current = 0, lastFocus = null;
+
+        function visibleCaption(fig) {
+          var lang = html.getAttribute("data-lang") === "en" ? "en" : "fr";
+          var span = fig.querySelector('figcaption [data-l="' + lang + '"]');
+          return span ? span.textContent : "";
+        }
+        function available() {
+          return shots.filter(function (f) { return !f.querySelector(".frame").classList.contains("missing"); });
+        }
+        function show(fig) {
+          var img = fig.querySelector("img");
+          lbImg.src = img.currentSrc || img.src;
+          lbImg.alt = visibleCaption(fig);
+          lbCap.textContent = visibleCaption(fig);
+        }
+        function openLb(fig) {
+          var list = available();
+          current = list.indexOf(fig);
+          if (current < 0) return;
+          lastFocus = document.activeElement;
+          show(fig);
+          lb.classList.add("open");
+          document.body.style.overflow = "hidden";
+          lb.querySelector(".lb-close").focus();
+        }
+        function closeLb() {
+          lb.classList.remove("open");
+          document.body.style.overflow = "";
+          if (lastFocus) lastFocus.focus();
+        }
+        function step(d) {
+          var list = available();
+          if (!list.length) return;
+          current = (current + d + list.length) % list.length;
+          show(list[current]);
+        }
+        shots.forEach(function (fig) {
+          fig.addEventListener("click", function () { openLb(fig); });
+          fig.addEventListener("keydown", function (e) {
+            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLb(fig); }
+          });
+        });
+        lb.querySelector(".lb-close").addEventListener("click", closeLb);
+        lb.querySelector(".lb-prev").addEventListener("click", function (e) { e.stopPropagation(); step(-1); });
+        lb.querySelector(".lb-next").addEventListener("click", function (e) { e.stopPropagation(); step(1); });
+        lb.addEventListener("click", function (e) { if (e.target === lb) closeLb(); });
+        document.addEventListener("keydown", function (e) {
+          if (!lb.classList.contains("open")) return;
+          if (e.key === "Escape") closeLb();
+          if (e.key === "ArrowRight") step(1);
+          if (e.key === "ArrowLeft") step(-1);
+        });
 
         /* ---------- 3. Animations au défilement ---------- */
         function countUp(el) {
