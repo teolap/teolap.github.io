@@ -545,23 +545,35 @@
         var mapEl = document.getElementById("map");
         if (window.L && mapEl) {
           var map = L.map(mapEl, { scrollWheelZoom: false, worldCopyJump: true });
-          /* Fond de carte : OpenStreetMap, avec CARTO en secours si les tuiles ne chargent pas */
-          var osm = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            maxZoom: 18
-          }).addTo(map);
-          var tileErrors = 0;
-          osm.on("tileerror", function () {
-            tileErrors++;
-            if (tileErrors === 3) {
-              map.removeLayer(osm);
-              L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-                subdomains: "abcd",
-                maxZoom: 18
-              }).addTo(map);
+          /* Fonds de carte sans clé : Esri (gris pâle), puis OpenStreetMap en secours */
+          var tileSources = [
+            {
+              url: "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+              options: { attribution: "Tiles &copy; Esri", maxZoom: 16 }
+            },
+            {
+              url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+              options: {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+                maxZoom: 18,
+                referrerPolicy: "strict-origin-when-cross-origin"
+              }
             }
-          });
+          ];
+          function addTiles(i) {
+            if (i >= tileSources.length) return;
+            var layer = L.tileLayer(tileSources[i].url, tileSources[i].options).addTo(map);
+            var errors = 0, loaded = 0;
+            layer.on("tileload", function () { loaded++; });
+            layer.on("tileerror", function () {
+              errors++;
+              if (errors === 3 && loaded === 0) {
+                map.removeLayer(layer);
+                addTiles(i + 1);
+              }
+            });
+          }
+          addTiles(0);
 
           var bounds = [];
           places.forEach(function (place) {
