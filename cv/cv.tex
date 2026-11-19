@@ -1,0 +1,188 @@
+%-------------------------------------------------------------------------------
+% CV de Teo Laperle
+% Gabarit inspiré de « Jake's Resume » (Jake Gutierrez, licence MIT),
+% un des gabarits de CV les plus utilisés sur Overleaf.
+% Compilation : pdflatex cv.tex  (ou bouton « Recompile » dans Overleaf)
+%-------------------------------------------------------------------------------
+
+\documentclass[letterpaper,10.5pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{charter}
+\usepackage[margin=0.6in,top=0.5in,bottom=0.5in]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage[protrusion=true]{microtype}
+
+% Couleur principale : le bleu royal du site
+\definecolor{royal}{HTML}{2A52BE}
+\definecolor{grisfonce}{HTML}{4B5563}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\cfoot{\color{grisfonce}\small Teo Laperle \textbar{} teolap.github.io}
+
+\raggedright
+\setlength{\tabcolsep}{0in}
+\setlength{\parindent}{0pt}
+\urlstyle{same}
+
+% Titres de section : petites capitales bleues, filet dessous
+\titleformat{\section}
+  {\vspace{-6pt}\scshape\raggedright\large\bfseries\color{royal}}
+  {}{0em}{}[\color{royal}\titlerule\vspace{-4pt}]
+
+%---------------------------------- Commandes ----------------------------------
+
+% Poste ou diplôme : titre et dates en haut, organisation et lieu en dessous
+\newcommand{\entry}[4]{%
+  \item
+  \begin{tabularx}{\linewidth}{X r}
+    \textbf{#1} & \color{grisfonce}#2 \\
+    \textit{#3} & \textit{\small\color{grisfonce}#4} \\
+  \end{tabularx}\vspace{-6pt}
+}
+\newcommand{\point}[1]{\item\small{#1}\vspace{-2pt}}
+\newcommand{\entriesStart}{\begin{itemize}[leftmargin=0.1in, label={}]}
+\newcommand{\entriesEnd}{\end{itemize}}
+\newcommand{\pointsStart}{\begin{itemize}[leftmargin=0.2in, label={\color{royal}\textbullet}]}
+\newcommand{\pointsEnd}{\end{itemize}\vspace{-4pt}}
+
+%-------------------------------------------------------------------------------
+\begin{document}
+
+%---------------------------------- En-tête -----------------------------------
+\begin{center}
+  {\Huge\scshape\color{royal} Teo Laperle} \\[4pt]
+  \small
+  % Pour retirer ton numéro, efface la ligne suivante :
+  +1 (581) 397-8944 $|$
+  \href{mailto:teolaperle@gmail.com}{teolaperle@gmail.com} $|$
+  \href{https://www.linkedin.com/in/teo-laperle/}{linkedin.com/in/teo-laperle} $|$
+  \href{https://teolap.github.io}{teolap.github.io} $|$
+  Québec City, QC
+\end{center}
+
+%---------------------------------- Profil ------------------------------------
+\section{Master's Candidate in International Studies}
+\pointsStart
+  \point{Master of Arts candidate in International Studies, specializing in International Security, at Université Laval}
+  \point{Experience in research, analysis, coordination, and communications in academic and event settings}
+  \point{Bilingual in French and English, with a good understanding of Spanish}
+  \point{Known for professionalism, strong organizational skills, and the ability to manage competing priorities}
+\pointsEnd
+
+%--------------------------------- Formation ----------------------------------
+\section{Education}
+\entriesStart
+
+  \entry{Master of Arts in International Studies, Specialization in International Security}{2026 -- Present}
+        {Université Laval}{Québec City, QC}
+
+  \entry{Bachelor of Arts (Honours) in International Studies, Minor in Political Science}{2026}
+        {Bishop's University}{Sherbrooke, QC}
+
+  \entry{Exchange Semester, First-Class Honours}{January -- May 2025}
+        {University of Hertfordshire}{Hatfield, United Kingdom}
+
+\entriesEnd
+
+%-------------------------------- Expérience ----------------------------------
+\section{Experience}
+\entriesStart
+
+  \entry{Emerging Scholar}{2026 -- Present}
+        {Strategic Analysis Network (RAS/SAN)}{Québec City, QC}
+  \pointsStart
+    \point{Member of a Canadian research network on strategic analysis, defence, and security}
+  \pointsEnd
+
+  \entry{Coordinator}{September 2025 -- Present}
+        {Canadian Undergraduate Security Conference (CUSC)}{Canada (Remote)}
+  \pointsStart
+    \point{Reviewed more than 50 student research proposals and recommended submissions for the conference's final program}
+    \point{Helped develop research themes and prepare the conference call for submissions}
+    \point{Developed panels on defence and international security, bringing together student presenters, chairs, and moderators}
+    \point{Coordinated communications with students and guest speakers, as well as content published on the conference's official social media channels}
+  \pointsEnd
+
+  \entry{Delegate}{October 2026 -- Present}
+        {OTAN UL, Université Laval}{Québec City, QC / Washington, DC}
+  \pointsStart
+    \point{Member of Université Laval's delegation to International Model NATO in Washington (February 2027)}
+  \pointsEnd
+
+  \entry{Rapporteur}{October 2026}
+        {Montréal Climate Security Summit (NATO CCASCOE and CDA Institute)}{Montréal, QC}
+  \pointsStart
+    \point{Took notes for the official report on discussions linking climate, security, and defence}
+  \pointsEnd
+
+  \entry{Student Delegate}{March 2026}
+        {Ottawa Conference on Security and Defence (CDA Institute)}{Ottawa, ON}
+  \pointsStart
+    \point{Attended a leading Canadian defence and security conference alongside government, military, academic, and industry representatives}
+    \point{Welcomed more than 500 attendees and supported conference operations as part of a student volunteer team}
+    \point{Prepared structured notes on panels covering defence, security, and strategic policy}
+    \point{Engaged directly with defence and security practitioners from nine countries, including government representatives, diplomats, military personnel, academics, and private-sector representatives}
+  \pointsEnd
+
+  \entry{Teaching Assistant}{Winter 2026}
+        {POL338: International Law and Human Rights, Bishop's University}{Sherbrooke, QC}
+  \pointsStart
+    \point{Supported course delivery by facilitating discussions and providing academic support to students}
+    \point{Helped more than 30 students prepare assignments and exams for an advanced international law course}
+    \point{Worked with the instructor to mark assignments and assessments}
+  \pointsEnd
+
+  \entry{Model United Nations Delegate}{2024 -- Present}
+        {Bishop's University}{Sherbrooke, QC / New York, NY}
+  \pointsStart
+    \point{Researched and drafted position papers on arms control and international security}
+    \point{Represented the United States, the Netherlands, and Norway in formal simulations, including NMUN New York}
+    \point{Applied treaty interpretation, negotiation strategies, and multilateral diplomacy in debates and resolution drafting}
+  \pointsEnd
+
+  \entry{Sales Associate}{April 2020 -- Present}
+        {Société des alcools du Québec (SAQ)}{Montréal, QC}
+  \pointsStart
+    \point{Advised customers in a high-volume, regulated retail environment}
+    \point{Applied compliance and customer-service standards when selling controlled products, with professionalism and care}
+    \point{Built strong customer service, communication, and judgment skills while maintaining long-term employment alongside full-time university studies}
+  \pointsEnd
+
+\entriesEnd
+
+%--------------------------------- Compétences --------------------------------
+\section{Skills}
+\begin{itemize}[leftmargin=0.1in, label={}]
+  \small{\item{
+    \textbf{Research methods:} qualitative research, comparative analysis, case studies, policy analysis, treaty analysis, source evaluation \\
+    \textbf{Research databases:} JSTOR, LexisNexis, Semantic Scholar, Google Scholar \\
+    \textbf{Analytical skills:} briefing notes, policy writing, position papers, synthesis of complex information, analytical writing, presentation support \\
+    \textbf{Open-source research:} media monitoring, source cross-checking, tracking geopolitical and security trends \\
+    \textbf{Data and digital tools:} R (tidyverse, ggplot2, web scraping), Git and GitHub, \LaTeX, HTML and CSS, Excel, Canva \\
+    \textbf{Communications:} formal correspondence, information preparation, social media content, public communication, bilingual writing \\
+    \textbf{Languages:} French, English, Spanish
+  }}
+\end{itemize}
+
+%---------------------------------- Bénévolat ---------------------------------
+\section{Volunteer Experience}
+\entriesStart
+  \entry{Open House Volunteer}{Fall 2025}
+        {Department of Politics and International Studies, Bishop's University}{Sherbrooke, QC}
+  \entry{Blood Donation Drive Volunteer}{2025}
+        {Héma-Québec, Bishop's University}{Sherbrooke, QC}
+  \entry{Orientation Week Volunteer}{2024}
+        {Bishop's University}{Sherbrooke, QC}
+\entriesEnd
+
+\end{document}
